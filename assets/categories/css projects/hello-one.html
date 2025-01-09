@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Product Page</title>
+    <style>
+        /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Product Page Container */
+.product-page {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+/* Product Image Gallery */
+.product-gallery {
+    flex: 1;
+    padding: 10px;
+}
+
+.main-image {
+    width: 85%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.thumbnail-gallery {
+    display: flex;
+    gap: 10px;
+}
+
+.thumbnail-gallery img {
+    width: 20%;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.thumbnail-gallery img:hover {
+    transform: scale(1.05);
+}
+
+/* Product Details */
+.product-details {
+    flex: 1;
+    padding: 10px;
+}
+
+.product-title {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.product-price {
+    font-size: 1.5em;
+    color: #e67e22;
+    margin-bottom: 10px;
+}
+
+.product-description {
+    font-size: 1em;
+    margin-bottom: 20px;
+}
+
+.add-to-cart-button {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-cart-button:hover {
+    background-color: #2980b9;
+}
+
+/* Product Specifications */
+.product-specifications {
+    margin-top: 20px;
+}
+
+.product-specifications h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.product-specifications ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.product-specifications li {
+    margin-bottom: 5px;
+}
+
+/* Reviews Section */
+.product-reviews {
+    margin-top: 20px;
+}
+
+.product-reviews h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.review {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .product-page {
+        flex-direction: column;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <!-- Product Page Container -->
+    <div class="product-page">
+
+        <!-- Product Image Gallery -->
+        <section class="product-gallery">
+            <img src="https://m.media-amazon.com/images/I/814QyOBaD8L._SX466_.jpg" alt="Main Product Image" class="main-image">
+            <div class="thumbnail-gallery">
+                <img src="https://m.media-amazon.com/images/I/71frOcwsrDL._SX466_.jpg" alt="Thumbnail 1">
+                <img src="https://m.media-amazon.com/images/I/71lzpE4kX0L._SL1500_.jpg" alt="Thumbnail 2">
+                <img src="https://m.media-amazon.com/images/I/7185qvsa6WL._SL1500_.jpg" alt="Thumbnail 3">
+                <img src="https://m.media-amazon.com/images/I/71SeDXLwjQL._SL1500_.jpg" alt="Thumbnail 4">
+            </div>
+        </section>
+
+        <!-- Product Details Section -->
+        <section class="product-details">
+            <h1 class="product-title">Amazing Product</h1>
+            <p class="product-price">$99.99</p>
+            <p class="product-description">
+                This is an amazing product that you absolutely need! It comes with a lot of features that
+                make it the perfect choice for you.
+            </p>
+            <button class="add-to-cart-button">Add to Cart</button>
+
+            <!-- Product Specifications -->
+            <div class="product-specifications">
+                <h2>Specifications</h2>
+                <ul>
+                    <li>Feature 1: High Quality</li>
+                    <li>Feature 2: Durable Material</li>
+                    <li>Feature 3: Energy Efficient</li>
+                </ul>
+            </div>
+
+            <!-- Reviews Section -->
+            <div class="product-reviews">
+                <h2>Customer Reviews</h2>
+                <div class="review">
+                    <p>"Great product, exceeded my expectations!" - <strong>Jane D.</strong></p>
+                </div>
+                <div class="review">
+                    <p>"Very useful and worth the price." - <strong>John S.</strong></p>
+                </div>
+            </div>
+        </section>
+        
+    </div>
+
+</body>
+</html>

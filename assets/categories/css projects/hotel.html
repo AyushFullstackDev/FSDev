@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #000;
+            color: #fff;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .navbar ul li {
+            margin: 0 1rem;
+        }
+        
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #FFD700;
+        }
+        
+        .reserve-button {
+            background: #FFD700;
+            color: #000;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: transform 0.2s ease;
+        }
+
+        .reserve-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .hero {
+            background: url('https://img.freepik.com/premium-photo/blurred-restaurant-background_893571-15162.jpg') no-repeat center center/cover;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+        
+        .hero-text {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            margin: 0;
+            animation: fadeIn 1.5s ease-in;
+        }
+        
+        .best-selling {
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .cards {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding: 1rem;
+        }
+        
+        .card {
+            margin: 1rem;
+            padding: 1rem;
+            background: #f8f8f8;
+            border-radius: 8px;
+            text-align: center;
+            width: 250px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card img {
+            width: 100%;
+            height: 180px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        
+        .card h3 {
+            margin: 1rem 0 0.5rem;
+            color: #333;
+        }
+        
+        .card p {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Media Queries for Responsiveness */
+        @media screen and (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                text-align: center;
+                margin: 1rem 0;
+            }
+
+            .navbar ul li {
+                margin: 0.5rem 0;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+                padding: 0 1rem;
+            }
+
+            .cards {
+                justify-content: center;
+            }
+
+            .card {
+                width: 100%;
+                max-width: 300px;
+                margin: 0.5rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .hero {
+                height: 40vh;
+            }
+
+            .hero-text h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">MENU</div>
+        <nav>
+            <ul>
+                <li><a href="#">Menu</a></li>
+                <li><a href="#">Reservas</a></li>
+                <li><a href="#">Reservations</a></li>
+                <li><a href="#">Gallery</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+        <button class="reserve-button">Reserve</button>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Welcome to Our Restaurant</h1>
+        </div>
+    </section>
+
+    <section class="best-selling">
+        <h2>Best-Selling</h2>
+        <div class="cards">
+            <div class="card">
+                <img src="dish1.jpg" alt="Dish 1">
+                <h3>Menu</h3>
+                <p>Description of Dish 1</p>
+            </div>
+            <div class="card">
+                <img src="https://png.pngtree.com/thumb_back/fw800/background/20240716/pngtree-tasty-meat-burger-with-cheese-and-salad-image_16008879.jpg" alt="Dish 2">
+                <h3>Menu</h3>
+                <p>Description of Dish 2</p>
+            </div>
+            <div class="card">
+                <img src="https://madhurasrecipe.com/wp-content/uploads/2020/10/Dal-Fry-Marathi-Recipe.jpg" alt="Dish 3">
+                <h3>Ganú</h3>
+                <p>Description of Dish 3</p>
+            </div>
+            <div class="card">
+                <img src="https://i.ytimg.com/vi/OcFlqNZyrJ4/maxresdefault.jpg" alt="Dish 4">
+                <h3>About</h3>
+                <p>Description of Dish 4</p>
+            </div>
+            <div class="card">
+                <img src="dish4.jpg" alt="Dish 4">
+                <h3>About</h3>
+                <p>Description of Dish 4</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.querySelector('.reserve-button').addEventListener('click', () => {
+            alert('Reservation feature coming soon!');
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add lazy loading for images
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.loading = 'lazy';
+            });
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog Clock</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: rgb(253, 253, 255);
+            background: radial-gradient(circle, rgb(40, 40, 122) 0%, rgb(54, 73, 96) 100%);
+        }
+
+        .clock {
+            width: 600px;
+            height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-radius: 50%;
+            background: rgb(255, 255, 255);
+            background: radial-gradient(circle, rgb(123, 123, 123) 0%, rgb(39, 49, 76) 100%);
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        .clock::before {
+            content: "";
+            position: absolute;
+            width: 625px;
+            height: 625px;
+            background: rgb(238, 174, 202);
+            background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .number {
+            transform: rotate(calc(30deg * var(--n)));
+            position: absolute;
+            text-align: center;
+            inset: 20px;
+            font-size: 40px;
+            color: aqua;
+        }
+
+        .number b {
+            transform: rotate(calc(-30deg * var(--n)));
+            display: inline-block;
+        }
+
+        .center-circle {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            background: rgb(228, 165, 165);
+            background: radial-gradient(circle, rgba(228, 165, 165, 1) 0%, rgb(255, 0, 0) 100%);
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .hour-hand,
+        .minute-hand,
+        .second-hand {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-origin: bottom;
+            transform: translate(-50%, -100%) rotate(0deg);
+            border-radius: 10px;
+        }
+
+        .hour-hand {
+            width: 13px;
+            height: 150px;
+            background: rgb(228, 165, 165);
+            background: radial-gradient(circle, rgba(228, 165, 165, 1) 0%, rgba(128, 0, 255, 1) 100%);
+        }
+
+        .minute-hand {
+            width: 7px;
+            height: 200px;
+            background: rgb(228, 165, 165);
+            background: radial-gradient(circle, rgba(228, 165, 165, 1) 0%, rgba(128, 0, 255, 1) 100%);
+        }
+
+        .second-hand {
+            width: 3px;
+            height: 250px;
+            background: rgb(228, 165, 165);
+            background: radial-gradient(circle, rgba(228, 165, 165, 1) 0%, rgb(255, 0, 0) 100%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="clock">
+        <div class="number" style="--n:1"><b>1</b></div>
+        <div class="number" style="--n:2"><b>2</b></div>
+        <div class="number" style="--n:3"><b>3</b></div>
+        <div class="number" style="--n:4"><b>4</b></div>
+        <div class="number" style="--n:5"><b>5</b></div>
+        <div class="number" style="--n:6"><b>6</b></div>
+        <div class="number" style="--n:7"><b>7</b></div>
+        <div class="number" style="--n:8"><b>8</b></div>
+        <div class="number" style="--n:9"><b>9</b></div>
+        <div class="number" style="--n:10"><b>10</b></div>
+        <div class="number" style="--n:11"><b>11</b></div>
+        <div class="number" style="--n:12"><b>12</b></div>
+        <div class="hour-hand"></div>
+        <div class="minute-hand"></div>
+        <div class="second-hand"></div>
+        <div class="center-circle"></div>
+    </div>
+
+    <script>
+        const hourHand = document.querySelector('.hour-hand');
+        const minuteHand = document.querySelector('.minute-hand');
+        const secondHand = document.querySelector('.second-hand');
+
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours() % 12;
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            const hourDeg = (hours + minutes / 60) * 30; // 360 / 12 = 30
+            const minuteDeg = (minutes + seconds / 60) * 6; // 360 / 60 = 6
+            const secondDeg = seconds * 6; // 360 / 60 = 6
+
+            hourHand.style.transform = `translate(-50%, -100%) rotate(${hourDeg}deg)`;
+            minuteHand.style.transform = `translate(-50%, -100%) rotate(${minuteDeg}deg)`;
+            secondHand.style.transform = `translate(-50%, -100%) rotate(${secondDeg}deg)`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock(); // Initial call to set the correct time on load
+    </script>
+</body>
+
+</html>

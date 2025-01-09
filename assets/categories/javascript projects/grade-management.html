@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Calculator</title>
+    <style>
+        /* styles.css */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #36d1dc, #5b86e5);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #5b86e5;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #5b86e5;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background: #5b86e5;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #36d1dc;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Grade Calculator</h1>
+        <form id="gradeForm">
+            <div class="input-group">
+                <label for="name">Student Name:</label>
+                <input type="text" id="name" placeholder="Enter student name" required>
+            </div>
+            <div class="input-group">
+                <label for="marks">Marks:</label>
+                <input type="number" id="marks" placeholder="Enter marks (0-100)" min="0" max="100" required>
+            </div>
+            <button type="submit">Grade Calculator</button>
+        </form>
+        <div id="result" class="result">
+            <!-- Result will be displayed here -->
+        </div>
+    </div>
+    <script>
+        // script.js
+
+        // Function to calculate grade
+        function calculateGrade(marks) {
+            if (marks >= 90) {
+                return "A+";
+            } else if (marks >= 80) {
+                return "A";
+            } else if (marks >= 70) {
+                return "B";
+            } else if (marks >= 60) {
+                return "C";
+            } else if (marks >= 50) {
+                return "D";
+            } else {
+                return "F";
+            }
+        }
+
+        // Function to evaluate pass or fail
+        function isPass(marks) {
+            return marks >= 50 ? "Pass" : "Fail";
+        }
+
+        // Handle form submission
+        document.getElementById('gradeForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent form from refreshing the page
+
+            // Get input values
+            const name = document.getElementById('name').value.trim();
+            const marks = parseInt(document.getElementById('marks').value.trim());
+
+            if (!name || isNaN(marks) || marks < 0 || marks > 100) {
+                alert('Please enter a valid name and marks between 0 and 100.');
+                return;
+            }
+
+            // Calculate grade and pass/fail status
+            const grade = calculateGrade(marks);
+            const passOrFail = isPass(marks);
+
+            // Display the result
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+        <p><strong>Student Name:</strong> ${name}</p>
+        <p><strong>Marks:</strong> ${marks}</p>
+        <p><strong>Grade:</strong> ${grade}</p>
+        <p><strong>Status:</strong> ${passOrFail}</p>
+    `;
+        });
+    </script>
+</body>
+
+</html>

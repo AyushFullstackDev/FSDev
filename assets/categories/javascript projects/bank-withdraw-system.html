@@ -1,0 +1,337 @@
+<!-- Bank Withdrawal System -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Banking System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            padding: 20px;
+        }
+
+        .atm-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 95%;
+            max-width: 450px;
+            backdrop-filter: blur(10px);
+        }
+
+        .bank-logo {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .bank-logo img {
+            width: 60px;
+            height: auto;
+        }
+
+        h1 {
+            color: #1e3c72;
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .balance-display {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            padding: 1.5rem;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .balance-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), transparent);
+            pointer-events: none;
+        }
+
+        .balance-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .balance-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #1e3c72;
+            box-shadow: 0 0 0 3px rgba(30,60,114,0.1);
+        }
+
+        .button-group {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        button {
+            padding: 1rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .withdraw-btn {
+            background: #1e3c72;
+            color: white;
+        }
+
+        .withdraw-btn:hover {
+            background: #2a5298;
+            transform: translateY(-2px);
+        }
+
+        .cancel-btn {
+            background: #f8f9fa;
+            color: #1e3c72;
+            border: 2px solid #e0e0e0;
+        }
+
+        .cancel-btn:hover {
+            background: #e9ecef;
+            border-color: #1e3c72;
+        }
+
+        .message {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-10px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .transaction-history {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.9rem;
+        }
+
+        .transaction-amount {
+            color: #dc3545;
+            font-weight: 600;
+        }
+
+        .transaction-date {
+            color: #6c757d;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 480px) {
+            .atm-container {
+                padding: 1.5rem;
+            }
+
+            .balance-amount {
+                font-size: 2rem;
+            }
+
+            .button-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="atm-container">
+        <div class="bank-logo">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMxZTNjNzIiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMyA5bDkgLTcgOSA3djExYTIgMiAwIDAgMSAtMiAySDVhMiAyIDAgMCAxIC0yIC0yeiIvPjxwb2x5bGluZSBwb2ludHM9IjkgMjIgOSAxMiAxNSAxMiAxNSAyMiIvPjwvc3ZnPg==" alt="Bank Logo">
+        </div>
+        <h1>Secure Banking</h1>
+        
+        <div class="balance-display">
+            <p class="balance-label">Available Balance</p>
+            <div class="balance-amount">₹<span id="balanceValue">50,000</span></div>
+        </div>
+
+        <div class="input-group">
+            <input type="number" id="withdrawAmount" placeholder="Enter withdrawal amount" min="100" step="100">
+        </div>
+
+        <div class="button-group">
+            <button class="withdraw-btn" onclick="handleWithdrawal()">Withdraw</button>
+            <button class="cancel-btn" onclick="resetForm()">Cancel</button>
+        </div>
+        
+        <div id="message" class="message"></div>
+
+        <div class="transaction-history">
+            <h3 style="margin-bottom: 1rem; color: #1e3c72;">Recent Transactions</h3>
+            <div id="transactionList"></div>
+        </div>
+    </div>
+
+    <script>
+        let balance = 50000;
+        let transactions = [];
+
+        function handleWithdrawal() {
+            const withdrawAmount = Number(document.getElementById('withdrawAmount').value);
+            const messageDiv = document.getElementById('message');
+            
+            messageDiv.style.display = 'block';
+            
+            // Validation checks
+            if (isNaN(withdrawAmount) || withdrawAmount <= 0) {
+                showMessage('Please enter a valid amount', 'error');
+                return;
+            }
+
+            if (withdrawAmount > balance) {
+                showMessage('Insufficient funds available', 'error');
+                return;
+            }
+
+            if (withdrawAmount % 100 !== 0) {
+                showMessage('Amount should be in multiples of 100', 'error');
+                return;
+            }
+
+            // Process withdrawal
+            balance -= withdrawAmount;
+            
+            // Add transaction to history
+            addTransaction(withdrawAmount);
+            
+            // Update UI
+            updateBalance();
+            showMessage('Withdrawal successful! Please collect your cash.', 'success');
+            
+            // Reset input
+            resetForm();
+        }
+
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = text;
+            messageDiv.className = `message ${type}`;
+            messageDiv.style.display = 'block';
+            
+            // Auto hide message after 5 seconds
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        function updateBalance() {
+            document.getElementById('balanceValue').textContent = balance.toLocaleString();
+        }
+
+        function resetForm() {
+            document.getElementById('withdrawAmount').value = '';
+            document.getElementById('message').style.display = 'none';
+        }
+
+        function addTransaction(amount) {
+            const transaction = {
+                amount: amount,
+                date: new Date().toLocaleString()
+            };
+            transactions.unshift(transaction);
+            updateTransactionHistory();
+        }
+
+        function updateTransactionHistory() {
+            const transactionList = document.getElementById('transactionList');
+            transactionList.innerHTML = '';
+            
+            transactions.slice(0, 5).forEach(transaction => {
+                const transactionEl = document.createElement('div');
+                transactionEl.className = 'transaction-item';
+                transactionEl.innerHTML = `                      
+                    <div>
+                        <div>Withdrawal</div>
+                        <div class="transaction-date">${transaction.date}</div>
+                    </div>
+                    <div class="transaction-amount">-₹${transaction.amount.toLocaleString()}</div>
+                `;
+                transactionList.appendChild(transactionEl);
+            });
+        }
+
+        // Initialize transaction history
+        updateTransactionHistory();
+    </script>
+</body>
+</html>

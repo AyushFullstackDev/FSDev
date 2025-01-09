@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .book-card {
+            margin: 15px 0;
+        }
+        .status-badge {
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container my-4">
+        <h1 class="text-center mb-4">Library Management System</h1>
+        <div class="form-group">
+            <input id="searchBar" type="text" class="form-control" placeholder="Search by title, author, or genre">
+        </div>
+        <div id="booksContainer" class="row">
+            <!-- Dynamic book cards will be injected here -->
+        </div>
+    </div>
+
+    <script>
+        // Sample Books Data
+        const books = [
+            { id: 1, title: "The Great Gatsby", author: "F. Scott Fitzgerald", genre: "Fiction", year: 1925, status: "Available" },
+            { id: 2, title: "To Kill a Mockingbird", author: "Harper Lee", genre: "Classic", year: 1960, status: "Issued" },
+            { id: 3, title: "1984", author: "George Orwell", genre: "Dystopian", year: 1949, status: "Available" },
+            { id: 4, title: "Pride and Prejudice", author: "Jane Austen", genre: "Romance", year: 1813, status: "Available" },
+            { id: 5, title: "The Catcher in the Rye", author: "J.D. Salinger", genre: "Fiction", year: 1951, status: "Issued" }
+        ];
+
+        // DOM Elements
+        const booksContainer = document.getElementById("booksContainer");
+        const searchBar = document.getElementById("searchBar");
+
+        // Render Books
+        function renderBooks(filter = "") {
+            booksContainer.innerHTML = ""; // Clear container
+            const filteredBooks = books.filter(book =>
+                book.title.toLowerCase().includes(filter.toLowerCase()) ||
+                book.author.toLowerCase().includes(filter.toLowerCase()) ||
+                book.genre.toLowerCase().includes(filter.toLowerCase())
+            );
+            
+            filteredBooks.forEach(book => {
+                const bookCard = `
+                    <div class="col-md-4 book-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">${book.title}</h5>
+                                <p class="card-text"><strong>Author:</strong> ${book.author}</p>
+                                <p class="card-text"><strong>Genre:</strong> ${book.genre}</p>
+                                <p class="card-text"><strong>Year:</strong> ${book.year}</p>
+                                <span class="badge badge-${book.status === "Available" ? "success" : "danger"} status-badge">${book.status}</span>
+                                <button class="btn btn-sm btn-primary mt-2" onclick="toggleStatus(${book.id})">${book.status === "Available" ? "Issue" : "Return"}</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                booksContainer.innerHTML += bookCard;
+            });
+        }
+
+        // Toggle Status
+        function toggleStatus(bookId) {
+            const book = books.find(b => b.id === bookId);
+            if (book) {
+                book.status = book.status === "Available" ? "Issued" : "Available";
+                renderBooks(searchBar.value); // Re-render books
+            }
+        }
+
+        // Search Books
+        searchBar.addEventListener("input", (e) => renderBooks(e.target.value));
+
+        // Initial Render
+        renderBooks();
+    </script>
+</body>
+</html>

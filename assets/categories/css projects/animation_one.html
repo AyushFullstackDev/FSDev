@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Clock</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .circle {
+            width: 600px;
+            height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            position: relative;
+            background-color: #fff;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        .inner-circle {
+            width: 470px;
+            height: 470px;
+            border-radius: 50%;
+            background-color: #fff;
+            position: absolute;
+            box-shadow: inset rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, inset rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+        }
+        .number {
+            transform: rotate(calc(30deg * var(--n)));
+            position: absolute;
+            text-align: center;
+            inset: 20px;
+            font-size: 40px;
+            color: black;
+        }
+
+        .number b {
+            transform: rotate(calc(-30deg * var(--n)));
+            display: inline-block;
+        }
+
+        .hand {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-origin: bottom;
+            transform: translate(-50%, -100%) rotate(0deg);
+            border-radius: 10px;
+            z-index: 1;
+        }
+
+        .hour-hand {
+            width: 13px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(228, 165, 165, 1) 0%, rgba(128, 0, 255, 1) 100%);
+            animation: rotateHour 43200s linear infinite;
+            z-index: 1;
+        }
+
+        .minute-hand {
+            width: 7px;
+            height: 190px;
+            background: radial-gradient(circle, rgba(228, 165, 165, 1) 0%, rgba(128, 0, 255, 1) 100%);
+            animation: rotateMinute 3600s linear infinite;
+            z-index: 1;
+        }
+
+        .second-hand {
+            width: 3px;
+            height: 230px;
+            background: radial-gradient(circle, rgba(228, 165, 165, 1) 0%, rgb(255, 0, 0) 100%);
+            animation: rotateSecond 60s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes rotateHour {
+            0% {
+                transform: translate(-50%, -100%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -100%) rotate(360deg);
+            }
+        }
+
+        @keyframes rotateMinute {
+            0% {
+                transform: translate(-50%, -100%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -100%) rotate(360deg);
+            }
+        }
+
+        @keyframes rotateSecond {
+            0% {
+                transform: translate(-50%, -100%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -100%) rotate(360deg);
+            }
+        }
+        .center-circle {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            background: rgb(228, 165, 165);
+            background: radial-gradient(circle, rgba(228, 165, 165, 1) 0%, rgb(255, 0, 0) 100%);
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .g1 {
+            width: 100px;
+            height: 100px;
+            top: 50%;
+            left: 50%;
+            position: absolute;
+            background-image: url(./assets/g1\ Background\ Removed.png);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: translate(-50%, -50%) rotate(0deg);
+            animation: rotate1 7s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes rotate1 {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(-360deg);
+            }
+        }
+        .g2 {
+            width: 350px;
+            height: 350px;
+            top: 55%;
+            left: 57%;
+            position: absolute;
+            background-image: url(./assets/g2\ Background\ Removed.png);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: translate(-50%, -50%) rotate(0deg);
+            animation: rotate2 18s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes rotate2 {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+        .g3 {
+            width: 100px;
+            height: 100px;
+            top: 49%;
+            left: 65%;
+            position: absolute;
+            background-image: url(./assets/g1\ Background\ Removed.png);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: translate(-50%, -50%) rotate(0deg);
+            animation: rotate3 7s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes rotate3 {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+        .g4 {
+            width: 100px;
+            height: 100px;
+            top: 65%;
+            left: 50%;
+            position: absolute;
+            background-image: url(./assets/g1\ Background\ Removed.png);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: translate(-50%, -50%) rotate(0deg);
+            animation: rotate4 7s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes rotate4 {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+        .g5 {
+            width: 150px;
+            height: 150px;
+            top: 50%;
+            left: 30%;
+            position: absolute;
+            background-image: url(./assets/g1\ Background\ Removed.png);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: translate(-50%, -50%) rotate(0deg);
+            animation: rotate5 12s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes rotate5 {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+        .g6 {
+            width: 170px;
+            height: 170px;
+            top: 28%;
+            left: 40%;
+            position: absolute;
+            background-image: url(./assets/g1\ Background\ Removed.png);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: translate(-50%, -50%) rotate(0deg);
+            animation: rotate6 12s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes rotate6 {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(-360deg);
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="circle">
+        <div class="number" style="--n:1"><b>1</b></div>
+            <div class="number" style="--n:2"><b>2</b></div>
+            <div class="number" style="--n:3"><b>3</b></div>
+            <div class="number" style="--n:4"><b>4</b></div>
+            <div class="number" style="--n:5"><b>5</b></div>
+            <div class="number" style="--n:6"><b>6</b></div>
+            <div class="number" style="--n:7"><b>7</b></div>
+            <div class="number" style="--n:8"><b>8</b></div>
+            <div class="number" style="--n:9"><b>9</b></div>
+            <div class="number" style="--n:10"><b>10</b></div>
+            <div class="number" style="--n:11"><b>11</b></div>
+            <div class="number" style="--n:12"><b>12</b></div>
+            <div class="center-circle"></div>
+            <div class="g1"></div>
+            <div class="g2"></div>
+            <div class="g3"></div>
+            <div class="g4"></div>
+            <div class="g5"></div>
+            <div class="g6"></div>
+        <div class="inner-circle">
+            
+            <div class="hand hour-hand"></div>
+            <div class="hand minute-hand"></div>
+            <div class="hand second-hand"></div>
+        </div>
+    </div>
+</body>
+
+</html>

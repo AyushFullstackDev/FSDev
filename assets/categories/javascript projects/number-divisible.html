@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Divisibility Checker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #d8d9f0 0%, #000DFF 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .checker-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+        }
+        .result-box {
+            border-radius: 15px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .success {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+        }
+        .failure {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+        }
+        .number-input {
+            font-size: 1.2rem;
+            padding: 0.8rem;
+            border-radius: 10px;
+            border: 2px solid #6B73FF;
+        }
+        .check-btn {
+            background: linear-gradient(45deg, #6B73FF, #000DFF);
+            border: none;
+            padding: 0.8rem 2rem;
+            color: white;
+            border-radius: 10px;
+            transition: transform 0.2s;
+        }
+        .check-btn:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(45deg, #000DFF, #6B73FF);
+        }
+        .animate-result {
+            animation: popIn 0.3s ease-out;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="checker-card">
+        <h2 class="text-center mb-4">Number Divisibility Checker</h2>
+        <div class="form-group">
+            <input type="number" class="form-control number-input" id="numberInput" placeholder="Enter a number">
+        </div>
+        <div class="text-center mt-4">
+            <button class="check-btn" onclick="checkNumber()">Check Divisibility</button>
+        </div>
+        <div id="result" class="result-box text-center" style="display: none;"></div>
+    </div>
+
+    <script>
+        function checkDivisibility() {
+            const number = parseInt(document.getElementById('numberInput').value);
+            const resultDiv = document.getElementById('result');
+            
+            if (isNaN(number)) {
+                resultDiv.className = 'result-box failure animate-result';
+                resultDiv.innerHTML = 'Please enter a valid number!';
+                resultDiv.style.display = 'block';
+                return;
+            }
+
+            const isDivisibleBy3 = number % 3 === 0;
+            const isDivisibleBy5 = number % 5 === 0;
+            
+            let message = '';
+            if (isDivisibleBy3) {
+                message = `<strong>${number}</strong> is only divisible by 3`;
+                resultDiv.className = 'result-box failure animate-result';
+            } else if (isDivisibleBy5) {
+                message = `<strong>${number}</strong> is only divisible by 5`;
+                resultDiv.className = 'result-box failure animate-result';
+            }
+            if (isDivisibleBy3 && isDivisibleBy5) {
+                message = `<strong>${number}</strong> is divisible by both 3 and 5! 🎉`;
+                resultDiv.className = 'result-box success animate-result';
+            } else {
+                message = `<strong>${number}</strong> is not divisible by either 3 or 5`;
+                resultDiv.className = 'result-box failure animate-result';
+            }
+            
+            resultDiv.innerHTML = message;
+            resultDiv.style.display = 'block';
+        }
+
+        // Clear result when input changes
+        document.getElementById('numberInput').addEventListener('input', function() {
+            document.getElementById('result').style.display = 'none';
+        });
+
+        function checkNumber(){
+            const number = document.getElementById('numberInput').value;
+            let output = '';
+
+            if(number % 3 === 0 && number % 5 === 0){
+                output = `${number} FizzBuzz`;
+            }
+            else if(number % 3 === 0){
+                output = `${number} Fizz`;
+            }
+            else if(number % 5 === 0){
+                output = `${number} Buzz`;
+            }
+            else{
+                output = `${number} Not FIZZBUZZ`;
+            }
+            document.getElementById('result').innerHTML = output;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
+

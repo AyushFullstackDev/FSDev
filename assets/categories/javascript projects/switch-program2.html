@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<style>
+  body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('https://static.vecteezy.com/system/resources/thumbnails/036/226/616/small_2x/ai-generated-nature-landscapes-background-free-photo.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background: rgb(255,134,205);
+background: linear-gradient(90deg, rgba(255,134,205,1) 0%, rgba(255,99,99,1) 62%, rgba(255,0,0,1) 100%); */
+  }
+
+  .container {
+    width: 50%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background-color: rgba(240, 248, 255, 0.184);
+
+  }
+
+  .display {
+    width: 83%;
+    height: 20%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.308);
+    color: rgb(85, 84, 84);
+    color: linear-gradient(0deg, rgba(0, 0, 0, 1) 35%, rgba(253, 45, 45, 1) 100%);
+
+    border-radius: 10px;
+    font-size: 30px;
+    font-weight: 800;
+    text-align: center;
+  }
+
+  .btn {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  button {
+    padding: 10px;
+    margin: 10px;
+    border: none;
+    border-radius: 10px;
+    width: 20%;
+    height: 30%;
+    font-size: 18px;
+    cursor: pointer;
+    /* background: rgb(238, 174, 202);
+    background: radial-gradient(circle, rgb(174, 238, 182) 0%, rgba(148, 187, 233, 1) 100%); */
+    background-image: url('https://img.freepik.com/premium-photo/yellow-blue-abstract-creative-background-blue-abstract-background-geometric-background_481527-28134.jpg?semt=ais_hybrid');
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  }
+
+  button:hover {
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  }
+</style>
+
+<body>
+
+  <div class="container">
+    <h2>JavaScript switch</h2>
+
+    <div class="display">
+      <p id="display"></p>
+    </div>
+
+    <div class="btn">
+      <button type="button" onclick="myFunction(0)">Sunday</button>
+      <button type="button" onclick="myFunction(1)">Monday</button>
+      <button type="button" onclick="myFunction(2)">Tuesday</button>
+      <button type="button" onclick="myFunction(3)">Wednesday</button>
+      <button type="button" onclick="myFunction(4)">Thursday</button>
+      <button type="button" onclick="myFunction(5)">Friday</button>
+      <button type="button" onclick="myFunction(6)">Saturday</button>
+    </div>
+  </div>
+
+  <script>
+    function myFunction(a) {
+
+      let day = 0;
+      switch (a) {
+        case 0:
+          day = "Sunday";
+          break;
+        case 1:
+          day = "Monday";
+          break;
+        case 2:
+          day = "Tuesday";
+          break;
+        case 3:
+          day = "Wednesday";
+          break;
+        case 4:
+          day = "Thursday";
+          break;
+        case 5:
+          day = "Friday";
+          break;
+        case 6:
+          day = "Saturday";
+      }
+      document.getElementById("display").innerHTML = "Today is " + day;
+    }
+  </script>
+
+</body>
+
+</html>

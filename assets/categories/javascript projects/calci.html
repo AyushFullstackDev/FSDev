@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #3b3b48;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .calculator {
+            width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+        }
+
+        .display {
+            text-align: right;
+            margin-bottom: 20px;
+            height: 100px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        .display p {
+            font-size: 36px;
+            margin-top: 10px;
+            padding: 10px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .button,
+        .button-one {
+            padding: 20px;
+            font-size: 18px;
+            background-color: #ff4d4d;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+        }
+
+        .button-one {
+            background-color: #fffcfc;
+            color: rgb(114, 114, 114);
+        }
+
+        .button-equal {
+            font-size: 35px;
+            background-color: #ff4d4d;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+        }
+
+        .button:hover,
+        .button-one:hover {
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="calculator">
+        <div class="display">
+            <p id="display">0</p>
+        </div>
+        <div class="buttons">
+            <button class="button" onclick="allClear()">AC</button>
+            <button class="button" onclick="toggleSign()">±</button>
+            <button class="button" onclick="deleteLastCharacter()">⌫</button>
+            <button class="button" onclick="Operator('/')">÷</button>
+
+            <button class="button-one" onclick="handleInput('7')">7</button>
+            <button class="button-one" onclick="handleInput('8')">8</button>
+            <button class="button-one" onclick="handleInput('9')">9</button>
+            <button class="button" onclick="Operator('*')">×</button>
+
+            <button class="button-one" onclick="handleInput('4')">4</button>
+            <button class="button-one" onclick="handleInput('5')">5</button>
+            <button class="button-one" onclick="handleInput('6')">6</button>
+            <button class="button" onclick="Operator('-')">-</button>
+
+            <button class="button-one" onclick="handleInput('1')">1</button>
+            <button class="button-one" onclick="handleInput('2')">2</button>
+            <button class="button-one" onclick="handleInput('3')">3</button>
+            <button class="button" onclick="Operator('+')">+</button>
+
+            <button class="button-one" onclick="handleInput('0')">0</button>
+            <button class="button-one" onclick="handleInput('.')">.</button>
+            <button class="button-one" onclick="handleModulo()">%</button>
+            <button class="button-equal" onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <script>
+        let num = "";
+
+        // function handleInput(input) {
+        //     num += input;
+        //     document.getElementById("display").innerHTML = num;
+        // }
+        function handleInput(ramu){
+            document.getElementById("display").value = ramu;
+        }
+
+        function allClear() {
+            num = "";
+            document.getElementById("display").innerHTML = "0";
+        }
+
+        function Operator(operator) {
+            num += " " + operator + " ";
+            document.getElementById("display").innerHTML = num;
+        }
+
+        function deleteLastCharacter() {
+            num = num.slice(0, -1);
+            if (num === "") {
+                num = "0";
+            }
+            document.getElementById("display").innerHTML = num;
+        }
+
+        function calculate() {
+            try {
+                const result = eval(num);
+                document.getElementById("display").innerHTML = result;
+                num = result.toString(); // Store the result for further operations
+            } catch (error) {
+                document.getElementById("display").innerHTML = num;
+                num = num;
+            }
+        }
+
+        // function toggleSign() {
+        //     if (num.startsWith("-")) {
+        //         num = num.substring(1);
+        //     } else {
+        //         num = "-" + num;
+        //     }
+        //     document.getElementById("display").innerHTML = num;
+        // }
+
+        // function handleModulo() {
+        //     num += " % ";
+        //     document.getElementById("display").innerHTML = num;
+        // }
+    </script>
+
+</body>
+
+</html>

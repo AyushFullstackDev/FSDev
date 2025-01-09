@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <style>
+        /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Weather Dashboard Container */
+.weather-dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+/* Search Bar */
+.search-bar {
+    display: flex;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+}
+
+.search-bar button {
+    padding: 10px;
+    border: none;
+    background-color: #3498db;
+    color: white;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+    transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+    background-color: #2980b9;
+}
+
+/* Weather Display */
+.weather-display {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#weatherIcon {
+    width: 100px;
+    height: 100px;
+    margin-top: 10px;
+}
+
+/* Temperature Unit Toggle */
+.toggle-unit button {
+    padding: 8px 16px;
+    border: none;
+    background-color: #2ecc71;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-unit button:hover {
+    background-color: #27ae60;
+}
+    </style>
+</head>
+<body>
+    <div class="weather-dashboard">
+        <h1>Weather Dashboard</h1>
+
+        <!-- Search Form -->
+        <div class="search-bar">
+            <input type="text" id="cityInput" placeholder="Enter city name">
+            <button onclick="getWeather()">Search</button>
+        </div>
+
+        <!-- Weather Display Section -->
+        <div class="weather-display">
+            <h2 id="cityName">City Name</h2>
+            <p id="temperature">Temperature: -- °C</p>
+            <p id="weatherDescription">Weather: --</p>
+            <img id="weatherIcon" src="" alt="Weather Icon" style="display: none;">
+        </div>
+
+        <!-- Temperature Unit Toggle -->
+        <div class="toggle-unit">
+            <button onclick="toggleUnit()">Toggle °C / °F</button>
+        </div>
+    </div>
+
+    <script>
+        let isCelsius = true;
+let currentTemperature = 0;
+
+async function getWeather() {
+    const city = document.getElementById("cityInput").value;
+    const apiKey = "YOUR_API_KEY"; // Replace with your OpenWeatherMap API key
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data.cod === 200) {
+            displayWeather(data);
+        } else {
+            alert("City not found. Please try again.");
+        }
+    } catch (error) {
+        console.error("Error fetching weather data:", error);
+        alert("Unable to retrieve weather information. Please try again later.");
+    }
+}
+
+function displayWeather(data) {
+    document.getElementById("cityName").textContent = data.name;
+    currentTemperature = data.main.temp;
+    document.getElementById("temperature").textContent = `Temperature: ${currentTemperature.toFixed(1)} °C`;
+    document.getElementById("weatherDescription").textContent = `Weather: ${data.weather[0].description}`;
+    
+    const icon = data.weather[0].icon;
+    document.getElementById("weatherIcon").src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+    document.getElementById("weatherIcon").style.display = "block";
+}
+
+function toggleUnit() {
+    isCelsius = !isCelsius;
+
+    let temperatureDisplay = currentTemperature;
+    if (!isCelsius) {
+        temperatureDisplay = (currentTemperature * 9/5) + 32;
+        document.getElementById("temperature").textContent = `Temperature: ${temperatureDisplay.toFixed(1)} °F`;
+    } else {
+        document.getElementById("temperature").textContent = `Temperature: ${currentTemperature.toFixed(1)} °C`;
+    }
+}
+    </script>
+</body>
+</html>

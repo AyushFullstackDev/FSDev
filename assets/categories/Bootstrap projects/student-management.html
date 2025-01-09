@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .student-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 60px;
+            object-fit: cover;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .floating-add-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            background: #764ba2;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        .floating-add-btn:hover {
+            transform: scale(1.1);
+            background: #667eea;
+        }
+        .stats-card {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <!-- Header Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card stats-card p-4">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <h3>Total Students</h3>
+                            <h2 class="counter">245</h2>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <h3>Active</h3>
+                            <h2 class="counter">230</h2>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <h3>Graduates</h3>
+                            <h2 class="counter">15</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card p-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search students..." id="searchInput">
+                        <button class="btn btn-primary" type="button">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Students Grid -->
+        <div class="row" id="studentsGrid">
+            <!-- Student Card Template -->
+            <div class="col-md-4 mb-4">
+                <div class="card p-3">
+                    <div class="text-center mb-3">
+                        <img src="https://via.placeholder.com/150" class="student-avatar" alt="Student">
+                    </div>
+                    <h4 class="text-center mb-3">John Doe</h4>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">ID:</span>
+                        <span>STU001</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Grade:</span>
+                        <span>A</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="text-muted">Status:</span>
+                        <span class="badge bg-success">Active</span>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Add Button -->
+    <div class="floating-add-btn" data-bs-toggle="modal" data-bs-target="#addStudentModal">
+        <i class="bi bi-plus"></i>
+    </div>
+
+    <!-- Add Student Modal -->
+    <div class="modal fade" id="addStudentModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Student</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addStudentForm">
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Student ID</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Grade</label>
+                            <select class="form-select">
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                                <option>D</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Add Student</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sample student data
+        const students = [
+            {
+                name: 'John Doe',
+                id: 'STU001',
+                grade: 'A',
+                status: 'Active',
+                avatar: 'https://via.placeholder.com/150'
+            },
+            // Add more student objects here
+        ];
+
+        // Function to create student card
+        function createStudentCard(student) {
+            return `
+                <div class="col-md-4 mb-4">
+                    <div class="card p-3">
+                        <div class="text-center mb-3">
+                            <img src="${student.avatar}" class="student-avatar" alt="Student">
+                        </div>
+                        <h4 class="text-center mb-3">${student.name}</h4>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">ID:</span>
+                            <span>${student.id}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Grade:</span>
+                            <span>${student.grade}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span class="text-muted">Status:</span>
+                            <span class="badge bg-success">${student.status}</span>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to render students
+        function renderStudents(studentsArray) {
+            const grid = document.getElementById('studentsGrid');
+            grid.innerHTML = studentsArray.map(student => createStudentCard(student)).join('');
+        }
+
+        // Initial render
+        renderStudents(students);
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredStudents = students.filter(student => 
+                student.name.toLowerCase().includes(searchTerm) || 
+                student.id.toLowerCase().includes(searchTerm)
+            );
+            renderStudents(filteredStudents);
+        });
+
+        // Counter animation
+        document.querySelectorAll('.counter').forEach(counter => {
+            const target = +counter.innerText;
+            let count = 0;
+            const timer = setInterval(() => {
+                count++;
+                counter.innerText = count;
+                if(count === target) clearInterval(timer);
+            }, 20);
+        });
+    </script>
+</body>
+</html>
+

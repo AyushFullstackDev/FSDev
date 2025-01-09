@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBC Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .quiz-container {
+            background-color: #2d2d2d;
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .question {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .options button {
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .options button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <div id="question-container">
+            <p id="question" class="question">What is the capital of France?</p>
+            <div id="options" class="options">
+                <button onclick="checkAnswer('A')">A. Berlin</button>
+                <button onclick="checkAnswer('B')">B. Madrid</button>
+                <button onclick="checkAnswer('C')">C. Paris</button>
+                <button onclick="checkAnswer('D')">D. Rome</button>
+            </div>
+        </div>
+        <p id="result" class="result"></p>
+    </div>
+
+    <script>
+        // Array of questions
+        const questions = [
+            {
+                question: "What is the capital of France?",
+                options: ["A. Berlin", "B. Madrid", "C. Paris", "D. Rome"],
+                answer: "C"
+            },
+            {
+                question: "Who developed the theory of relativity?",
+                options: ["A. Isaac Newton", "B. Albert Einstein", "C. Galileo Galilei", "D. Marie Curie"],
+                answer: "B"
+            },
+            {
+                question: "Which planet is known as the Red Planet?",
+                options: ["A. Venus", "B. Mars", "C. Jupiter", "D. Saturn"],
+                answer: "B"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function loadQuestion() {
+            const currentQuestion = questions[currentQuestionIndex];
+            document.getElementById('question').innerHTML = currentQuestion.question;
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+            currentQuestion.options.forEach((option, index) => {
+                optionsDiv.innerHTML += `<button onclick="checkAnswer('${String.fromCharCode(65 + index)}')">${option}</button>`;
+            });
+        }
+
+        function checkAnswer(option) {
+            const currentQuestion = questions[currentQuestionIndex];
+            const resultDiv = document.getElementById('result');
+            if (option === currentQuestion.answer) {
+                resultDiv.innerHTML = "Correct Answer!";
+            } else {
+                resultDiv.innerHTML = `Wrong Answer! The correct answer was ${currentQuestion.answer}.`;
+            }
+
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                setTimeout(() => {
+                    resultDiv.innerHTML = '';
+                    loadQuestion();
+                }, 2000);
+            } else {
+                setTimeout(() => {
+                    resultDiv.innerHTML = 'You have completed the game!';
+                }, 2000);
+            }
+        }
+
+        loadQuestion();
+    </script>
+
+</body>
+</html>
